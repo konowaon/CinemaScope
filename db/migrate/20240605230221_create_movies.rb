@@ -6,8 +6,7 @@ class CreateMovies < ActiveRecord::Migration[6.1]
       t.text :cast
       t.text :synopsis
       t.date :release_date
-      t.datetime :created_at
-      t.datetime :updated_at
+
 
       t.timestamps
     end

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <!-- ここに必要なCSSファイルやスタイルのリンクを追加 -->
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+</head>
+<body>
+  <!-- ナビゲーションメニュー -->
+  <nav>
+    <ul>
+      <li><%= link_to 'Home', admin_root_path %></li>
+      <li><%= link_to 'Movies', admin_movies_path %></li>
+        <li><%= link_to 'Reviews', admin_reviews_path %></li>
+        <li><%= link_to 'Users', admin_users_path %></li>
+        <% if admin_signed_in? %>
+          <li><%= link_to 'Logout', destroy_admin_session_path, method: :delete %></li>
+        <% end %>
+    </ul>
+  </nav>
+
+  <!-- ページコンテンツ -->
+  <div class="container">
+    <%= yield %>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <!-- フッターの内容を追加 -->
+  </footer>
+</body>
+</html>

@@ -13,3 +13,88 @@
  *= require_tree .
  *= require_self
  */
+/* app/assets/stylesheets/application.css */
+
+/* Reset some default browser styling */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.hero-section {
+  background: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.hero-section h1 {
+  margin-bottom: 10px;
+}
+
+.latest-reviews, .popular-movies, .categories {
+  background: #fff;
+  margin: 20px 0;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.latest-reviews h2, .popular-movies h2, .categories h2 {
+  margin-bottom: 20px;
+}
+
+.review, .popular-movies li, .categories li {
+  margin-bottom: 15px;
+}
+
+.review h3, .popular-movies h3, .categories li {
+  font-size: 1.2em;
+}
+
+.popular-movies ul, .categories ul {
+  list-style-type: none;
+}
+
+.popular-movies li, .categories li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.popular-movies li:last-child, .categories li:last-child {
+  border-bottom: none;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+

@@ -1,19 +1,49 @@
 class Public::UsersController < ApplicationController
+  before_action :authenticate_user!, except: [:create]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  
   def show
+    # set_user メソッドで既に @user が設定されているため、ここでは不要です
+  end
+  
+  def edit
+    @user = User.find(params[:id])
   end
 
   def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.'
+    else
+      render :new
+    end
   end
 
   def update
+    if @user.update(user_params)
+      redirect_to public_user_path(@user), notice: 'User was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
+    # ユーザーの削除権限のチェックを追加する必要があります
+    if current_user == @user
+      @user.destroy
+      redirect_to root_path, notice: 'User was successfully deleted.'
+    else
+      redirect_to root_path, alert: 'You are not authorized to perform this action.'
+    end
+  end
+  
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
-  def login
-  end
-
-  def logout
+  def user_params
+    params.require(:user).permit(:username, :email, :role)
   end
 end

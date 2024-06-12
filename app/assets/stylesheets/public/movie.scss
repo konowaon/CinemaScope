@@ -1,3 +1,16 @@
 // Place all the styles related to the public/movie controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.movie {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.movie h2 {
+  margin: 0;
+}
+
+.movie p {
+  margin: 5px 0;
+}

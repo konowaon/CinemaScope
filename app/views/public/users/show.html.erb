@@ -1,2 +1,12 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<!-- app/views/public/users/show.html.erb -->
+<h1>User: <%= @user.username %></h1>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Role:</strong>
+  <%= @user.role %>
+</p>
+<%= link_to 'Edit', edit_public_user_path(@user) %> |
+<%= link_to 'Back', root_path %>

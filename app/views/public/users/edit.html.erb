@@ -1,0 +1,35 @@
+<h1>ユーザー情報編集</h1>
+
+<%= form_for(@user, url: public_user_path(@user), method: :patch) do |f| %>
+  <div class="field">
+    <%= f.label :username, '名前' %><br>
+    <%= f.text_field :username %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, 'メールアドレス' %><br>
+    <%= f.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, 'パスワード' %><br>
+    <%= f.password_field :password %>
+    <small>(変更しない場合は空のままにしてください)</small>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, 'パスワード確認' %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit '更新' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', public_user_path(@user) %>
+
+<h2>Cancel My Account</h2>
+<p>Once you delete your account, there is no going back. Please be certain.</p>
+
+<%= button_to 'Delete My Account', public_user_path(@user), method: :delete, data: { confirm: 'Are you sure you want to delete your account?' }, class: 'btn btn-danger' %>

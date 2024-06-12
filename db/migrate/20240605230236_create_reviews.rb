@@ -5,8 +5,7 @@ class CreateReviews < ActiveRecord::Migration[6.1]
       t.references :movie, null: false, foreign_key: true
       t.integer :rating
       t.text :comment
-      t.datetime :created_at
-      t.datetime :updated_at
+
 
       t.timestamps
     end
