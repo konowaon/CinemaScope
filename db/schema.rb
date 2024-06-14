@@ -52,16 +52,13 @@ ActiveRecord::Schema.define(version: 2024_06_11_023421) do
   create_table "movies", force: :cascade do |t|
     t.string "title"
     t.string "director"
+    t.text "description"
+    t.decimal "rating", precision: 3, scale: 1
     t.text "cast"
     t.text "synopsis"
     t.date "release_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "genre_id", null: false
-    t.string "poster_url"
-    t.text "description"
-    t.float "rating"
-    t.index ["genre_id"], name: "index_movies_on_genre_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -100,7 +97,6 @@ ActiveRecord::Schema.define(version: 2024_06_11_023421) do
   add_foreign_key "comments", "users"
   add_foreign_key "movie_tags", "movies"
   add_foreign_key "movie_tags", "tags"
-  add_foreign_key "movies", "genres"
   add_foreign_key "reviews", "movies"
   add_foreign_key "reviews", "users"
 end

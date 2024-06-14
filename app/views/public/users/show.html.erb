@@ -1,12 +1,20 @@
 <!-- app/views/public/users/show.html.erb -->
-<h1>User: <%= @user.username %></h1>
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <strong>Role:</strong>
-  <%= @user.role %>
-</p>
-<%= link_to 'Edit', edit_public_user_path(@user) %> |
-<%= link_to 'Back', root_path %>
+
+<div class="user-details">
+  <h1>User: <%= @user.username %></h1>
+  
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+  
+  <p>
+    <strong>Role:</strong>
+    <%= @user.role %>
+  </p>
+  
+  <div class="user-actions">
+    <%= link_to 'Edit', edit_public_user_path(@user), class: 'btn btn-primary' %>
+    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+  </div>
+</div>

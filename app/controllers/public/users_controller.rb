@@ -1,5 +1,6 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:create]
+  before_action :correct_user, only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   
   def show
@@ -38,6 +39,11 @@ class Public::UsersController < ApplicationController
   end
   
   private
+  
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to public_user_path(current_user), alert: '他のユーザーの編集はできません。' unless @user == current_user
+  end
 
   def set_user
     @user = User.find(params[:id])

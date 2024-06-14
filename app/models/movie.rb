@@ -5,4 +5,6 @@ class Movie < ApplicationRecord
   has_many :tags, through: :movie_tags
 
   validates :title, presence: true
+  validates :description, presence: true
+  validates :rating, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
 end
