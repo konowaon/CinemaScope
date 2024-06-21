@@ -1,0 +1,12 @@
+<h1>Search</h1>
+
+<%= form_with url: search_path, method: :get, local: true do |form| %>
+  <div class="field">
+    <%= form.label :query, "Search" %>
+    <%= form.text_field :query %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Search" %>
+  </div>
+<% end %>

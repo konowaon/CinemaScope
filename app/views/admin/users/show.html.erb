@@ -1,2 +1,32 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<!-- app/views/admin/users/show.html.erb -->
+<div class="user-details">
+  <h1>User: <%= @user.username %></h1>
+  
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+  
+  <p>
+    <strong>Role:</strong>
+    <%= @user.role %>
+  </p>
+  
+  <h2>Comments by <%= @user.username %></h2>
+  
+  <div class="comments">
+    <% @comments.each do |comment| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= link_to comment.movie.title, admin_movie_path(comment.movie) %></h5>
+          <p class="card-text"><%= comment.content %></p>
+          <%= link_to '削除', admin_user_comment_path(@user, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="user-actions mt-4">
+    <%= link_to 'Back', admin_users_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
