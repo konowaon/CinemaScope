@@ -1,17 +1,18 @@
-<h2>Admin Login</h2>
+<!-- app/views/admin/sessions/new.html.erb -->
+<h1>Admin Login</h1>
 
-<%= form_for(resource, as: resource_name, url: admin_session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= form.label :email %><br>
+    <%= form.email_field :email, autofocus: true %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= form.label :password %><br>
+    <%= form.password_field :password %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Log in" %>
+    <%= form.submit "Login" %>
   </div>
 <% end %>

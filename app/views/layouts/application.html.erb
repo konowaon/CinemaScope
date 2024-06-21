@@ -3,30 +3,99 @@
 <html>
   <head>
     <title>CinemaScope</title>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <script src="https://kit.fontawesome.com/ee0d5227ce.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+    .site-title {
+      font-family: 'Arial', sans-serif;
+      font-size: 3rem;
+      color: #ff6347; /* Tomato color */
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .header {
+      background-image: url('header-background.jpg');
+      background-size: cover;
+      padding: 20px 0;
+    }
+    .navbar-nav .nav-item .nav-link {
+      font-size: 1.2rem;
+    }
+    .search-form {
+      display: flex;
+      align-items: center;
+    }
+    .search-form input[type="text"] {
+      margin-right: 5px;
+    }
+  </style>
   </head>
 
   <body>
-    <header>
-      <nav>
-        <ul>
-          <li><%= link_to 'Home', root_path %></li>
-          <li><%= link_to 'Movies', movies_path %></li>
-          <li><%= link_to 'Reviews', reviews_path %></li>
-          <li><%= link_to 'About', about_path %></li>
-          <% if user_signed_in? %>
-          <li><%= link_to 'My Page', public_user_path(current_user) %></li>
-            <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-          <% else %>
-            <li><%= link_to 'Login', new_user_session_path %></li>
-            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+    <header class="header">
+    <div class="container">
+      <h1 class="site-title">Welcome to CinemaScope!!</h1>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-home") + ' Home', root_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-film") + ' Movies', movies_path, class: "nav-link" %></li>
+          <!--<li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-star") + ' Reviews', reviews_path, class: "nav-link" %></li>-->
+            <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-info-circle") + ' About', about_path, class: "nav-link" %></li>
+            <% if user_signed_in? %>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-user") + ' My Page', public_user_path(current_user), class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-sign-out-alt") + ' Logout', destroy_user_session_path, method: :delete, class: "nav-link" %></li>
+            <% else %>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-sign-in-alt") + ' Login', new_user_session_path, class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-user-plus") + ' Sign Up', new_user_registration_path, class: "nav-link" %></li>
+            <% end %>
+            <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-user-shield") + ' Admin Login', new_admin_session_path, class: "nav-link" %></li>
+            <% if user_signed_in? %>
+              <li class="nav-item">
+                <%= form_with url: search_path, method: :get, local: true, class: "d-flex" do %>
+                  <%= text_field_tag :query, params[:query], placeholder: "Search movies, genres, users", class: "form-control me-2" %>
+                  <%= submit_tag 'Search', class: "btn btn-outline-success" %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+          <% if admin_signed_in? %>
+            <ul class="navbar-nav">
+              <!--<li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-home") + ' Home', admin_root_path, class: "nav-link" %></li>-->
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-film") + ' Movies', admin_movies_path, class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-plus") + ' New Movie', new_admin_movie_path, class: "nav-link" %></li>
+              <!--<li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-star") + ' Reviews', admin_reviews_path, class: "nav-link" %></li>-->
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-users") + ' Users', admin_users_path, class: "nav-link" %></li>
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-sign-out-alt") + ' Logout', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
+            </ul>
           <% end %>
-        </ul>
-      </nav>
-    </header>
+        </div>
+      </div>
+    </nav>
+  </header>
 
+  <div class="container">
     <%= yield %>
-  </body>
+  </div>
+
+  <!-- Add Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMN8oLtGKhcCkzOhLvbXG0MzR3q7hPXaUyWgD0LPDdP5qz8a9dD4Tq1KMvEgyjK" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.1/js/bootstrap.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7Mi8LlZ+amRtP0F4UX4zVQTfE5+zB8GV/H1" crossorigin="anonymous"></script>
+</body>
 </html>
+  <!-- フッター -->
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+      <span class="text-muted">© Your Company 2024</span>
+    </div>
+  </footer>

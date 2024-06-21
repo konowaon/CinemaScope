@@ -1,8 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @latest_reviews = Review.order(created_at: :desc).limit(5)
-    @popular_movies = Movie.order(rating: :desc).limit(5)
-    @categories = Genre.all
+    @new_movies = Movie.where(category: 'new').order(created_at: :desc).limit(5)
+    @popular_movies = Movie.where(category: 'popular').order(created_at: :desc).limit(5)
+    @genres = Genre.includes(:movies)
   end
   
   def about

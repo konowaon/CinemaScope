@@ -1,0 +1,35 @@
+<!-- app/views/search/results.html.erb -->
+<h1>Search Results</h1>
+
+<h2>Users</h2>
+<% if @users.any? %>
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= link_to user.username, public_user_path(user) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No users found</p>
+<% end %>
+
+<h2>Movies</h2>
+<% if @movies.any? %>
+  <ul>
+    <% @movies.each do |movie| %>
+      <li><%= link_to movie.title, movie_path(movie) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No movies found</p>
+<% end %>
+
+<h2>Genres</h2>
+<% if @genres.any? %>
+  <ul>
+    <% @genres.each do |genre| %>
+      <li><%= link_to genre.name, genre_path(genre) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No genres found</p>
+<% end %>

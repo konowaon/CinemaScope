@@ -1,2 +1,36 @@
-<h1>Admin::Movies#show</h1>
-<p>Find me in app/views/admin/movies/show.html.erb</p>
+<p>
+  <strong>タイトル:</strong>
+  <%= @movie.title %>
+</p>
+
+<p>
+  <strong>ジャンル:</strong>
+  <%= @movie.genre.name %>
+</p>
+
+<p>
+  <strong>カテゴリー:</strong>
+  <%= @movie.category == 'new' ? '新着映画' : '人気映画' %>
+</p>
+
+<p>
+  <strong>説明:</strong>
+  <%= @movie.description %>
+</p>
+
+<p>
+  <strong>公開日:</strong>
+  <%= @movie.release_date %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @movie.rating %>
+</p>
+
+<p>
+  <%= image_tag @movie.image, size: "300x300" if @movie.image.attached? %>
+</p>
+
+<%= link_to 'Edit', edit_admin_movie_path(@movie) %> |
+<%= link_to 'Back', admin_movies_path %>

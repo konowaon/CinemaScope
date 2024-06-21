@@ -2,11 +2,12 @@ class Public::UsersController < ApplicationController
   before_action :authenticate_user!, except: [:create]
   before_action :correct_user, only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  
+
   def show
-    # set_user メソッドで既に @user が設定されているため、ここでは不要です
+    @user = User.find(params[:id])
+    @comments = @user.comments.includes(:movie)
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
@@ -37,9 +38,9 @@ class Public::UsersController < ApplicationController
       redirect_to root_path, alert: 'You are not authorized to perform this action.'
     end
   end
-  
+
   private
-  
+
   def correct_user
     @user = User.find(params[:id])
     redirect_to public_user_path(current_user), alert: '他のユーザーの編集はできません。' unless @user == current_user

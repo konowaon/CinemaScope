@@ -1,38 +1,43 @@
-<!-- app/views/home/index.html.erb -->
-
-
-<div class="hero-section">
-  <h1>Welcome to CinemaScope</h1>
-  <p>Your source for the latest movie reviews</p>
-</div>
-
-<section class="latest-reviews">
-  <h2>Latest Reviews</h2>
-  <% @latest_reviews.each do |review| %>
-    <div class="review">
-      <h3><%= review.movie.title %> by <%= review.user.email %></h3>
-      <p><%= review.content %></p>
+<div class="container mt-4">
+  <!-- New Movies Section -->
+  <div class="new-movies mb-5">
+    <h2 class="mb-4">New Movies</h2>
+    <div class="row">
+      <% @new_movies.each do |movie| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <%= link_to movie_path(movie) do %>
+              <%= image_tag movie.image.variant(resize_to_fit: [150, 150]), class: "card-img-top" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to movie.title, movie_path(movie) %></h5>
+              <p class="card-text">ジャンル: <%= movie.genre.name %></p>
+              <p class="card-text">公開日: <%= movie.release_date %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-</section>
+  </div>
 
-<div class="popular-movies">
-  <h2>Popular Movies</h2>
-  <ul>
-    <% @popular_movies.each do |movie| %>
-      <li>
-        <h3><%= link_to movie.title, movie_path(movie) %></h3>
-        <p>Rating: <%= movie.rating %></p>
-      </li>
-    <% end %>
-  </ul>
-</div>
-
-<div class="categories">
-  <h2>Categories</h2>
-  <ul>
-    <% @categories.each do |category| %>
-      <li><%= link_to category.name, movies_path(genre: category.name) %></li>
-    <% end %>
-  </ul>
+  <!-- Popular Movies Section -->
+  <div class="popular-movies">
+    <h2 class="mb-4">Popular Movies</h2>
+    <div class="row">
+      <% @popular_movies.each do |movie| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <%= link_to movie_path(movie) do %>
+              <%= image_tag movie.image.variant(resize_to_fit: [150, 150]), class: "card-img-top" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to movie.title, movie_path(movie) %></h5>
+              <p class="card-text">ジャンル: <%= movie.genre.name %></p>
+              <p class="card-text">公開日: <%= movie.release_date %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
