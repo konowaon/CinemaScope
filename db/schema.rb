@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2024_06_19_062815) do
     t.integer "genre_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "poster_url"
     t.string "category"
     t.index ["genre_id"], name: "index_movies_on_genre_id"
   end
