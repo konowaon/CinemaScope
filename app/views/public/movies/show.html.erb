@@ -1,57 +1,74 @@
-<p>
-  <strong>タイトル:</strong>
-  <%= @movie.title %>
-</p>
-
-<p>
-  <strong>ジャンル:</strong>
-  <%= @movie.genre.name %>
-</p>
-
-<p>
-  <strong>カテゴリー:</strong>
-  <%= @movie.category == 'new' ? '新着映画' : '人気映画' %>
-</p>
-
-<p>
-  <strong>説明:</strong>
-  <%= @movie.description %>
-</p>
-
-<p>
-  <strong>公開日:</strong>
-  <%= @movie.release_date %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= @movie.rating %>
-</p>
-
-<p>
-  <strong></strong><br>
-  <%= image_tag @movie.image, size: "300x300" if @movie.image.attached? %>
-</p>
-
-<h3>コメント</h3>
-<% @comments.each do |comment| %>
-  <p><%= comment.content %> - <%= comment.user.username %></p>
-  <% if comment.user == current_user %>
-    <%= link_to '削除', public_movie_comment_path(@movie, comment.id), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-  <% end %>
-<% end %>
-
-<% if user_signed_in? %>
-  <h3>新しいコメントを投稿</h3>
-  <%= form_with(model: [@movie, @comment], url: public_movie_comments_path(@movie)) do |f| %>
-    <div class="mb-3">
-      <%= f.label :content, "コメント", class: "form-label" %>
-      <%= f.text_area :content, class: "form-control" %>
+<div class="container mt-5">
+  <div class="movie-details card mb-4">
+    <div class="card-body">
+      <h2 class="card-title"><%= @movie.title %></h2>
+      
+      <p>
+        <strong>ジャンル:</strong>
+        <%= @movie.genre.name %>
+      </p>
+      
+      <p>
+        <strong>カテゴリー:</strong>
+        <%= @movie.category == 'new' ? '新着映画' : '人気映画' %>
+      </p>
+      
+      <p>
+        <strong>説明:</strong>
+        <%= @movie.description %>
+      </p>
+      
+      <p>
+        <strong>公開日:</strong>
+        <%= @movie.release_date %>
+      </p>
+      
+      <p>平均評価: <%= @movie.reviews.average(:rating).to_f.round(1) %></p>
+      
+      <% if @movie.image.attached? %>
+        <div class="text-center">
+          <%= image_tag @movie.image, class: "img-fluid", style: "max-width: 300px;" %>
+        </div>
+      <% end %>
     </div>
-    <div class="mb-3">
-      <%= f.submit '投稿', class: "btn btn-primary" %>
+  </div>
+
+  <div class="reviews">
+    <h3>レビュー</h3>
+    <% @movie.reviews.each do |review| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p><strong>Rating:</strong> <%= review.rating %></p>
+          <p><strong>コメント:</strong> <%= review.content %></p>
+          <p><strong>ユーザー:</strong> <%= review.user.username %></p>
+          <% if review.user == current_user %>
+            <%= link_to '削除', movie_review_path(@movie, review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="new-review card mt-4">
+      <div class="card-body">
+        <h3>新しいレビューを投稿</h3>
+        <%= form_with(model: [@movie, @movie.reviews.build], url: movie_reviews_path(@movie), local: true) do |f| %>
+          <div class="mb-3">
+            <%= f.label :rating, "評価", class: "form-label" %>
+            <%= f.select :rating, options_for_select(1..5), {}, class: "form-select" %>
+          </div>
+          <div class="mb-3">
+            <%= f.label :content, "コメント", class: "form-label" %>
+            <%= f.text_area :content, class: "form-control" %>
+          </div>
+          <div class="mb-3">
+            <%= f.submit '投稿', class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
     </div>
+  <% else %>
+    <p>レビューを投稿するには<%= link_to 'ログイン', new_user_session_path %>してください。</p>
   <% end %>
-<% else %>
-  <p>コメントを投稿するには<%= link_to 'ログイン', new_user_session_path %>してください。</p>
-<% end %>
+</div>

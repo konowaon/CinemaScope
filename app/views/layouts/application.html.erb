@@ -13,7 +13,7 @@
     <style>
     .site-title {
       font-family: 'Arial', sans-serif;
-      font-size: 3rem;
+      font-size: 4rem;
       color: #ff6347; /* Tomato color */
       text-align: center;
       margin-top: 20px;
@@ -25,7 +25,7 @@
       padding: 20px 0;
     }
     .navbar-nav .nav-item .nav-link {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
     .search-form {
       display: flex;
@@ -33,6 +33,7 @@
     }
     .search-form input[type="text"] {
       margin-right: 5px;
+      width: 300px;
     }
   </style>
   </head>
@@ -74,7 +75,7 @@
               <!--<li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-home") + ' Home', admin_root_path, class: "nav-link" %></li>-->
               <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-film") + ' Movies', admin_movies_path, class: "nav-link" %></li>
               <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-plus") + ' New Movie', new_admin_movie_path, class: "nav-link" %></li>
-              <!--<li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-star") + ' Reviews', admin_reviews_path, class: "nav-link" %></li>-->
+              <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-star") + ' Reviews', admin_reviews_path, class: "nav-link" %></li>
               <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-users") + ' Users', admin_users_path, class: "nav-link" %></li>
               <li class="nav-item"><%= link_to content_tag(:i, "", class: "fas fa-sign-out-alt") + ' Logout', destroy_admin_session_path, method: :delete, class: "nav-link" %></li>
             </ul>

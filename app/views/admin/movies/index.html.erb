@@ -2,21 +2,21 @@
 
 <%= link_to '新規映画を投稿する', new_admin_movie_path, class: "btn btn-primary mb-4" %>
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
   <% @movies.each do |movie| %>
-    <div class="col mb-4">
+    <div class="col">
       <div class="card h-100">
         <% if movie.image.attached? %>
-          <%= image_tag movie.image, size: "200x200" %>
+          <%= image_tag movie.image, class: "card-img-top", alt: movie.title %>
         <% else %>
-          <img src="https://via.placeholder.com/100x100" class="card-img-top" alt="Placeholder">
+          <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Placeholder">
         <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= link_to movie.title, admin_movie_path(movie) %></h5>
-          <p class="card-text"><%= movie.description %></p>
-          <p class="card-text">評価: <%= movie.rating %></p>
-          <p class="card-text">ジャンル: <%= movie.genre.name %></p>
-          <p class="card-text">公開日: <%= movie.release_date %></p>
+          <p class="card-text"><%= truncate(movie.description, length: 100) %></p>
+          <!--<p class="card-text">評価: <%= movie.rating %></p>-->
+          <p class="card-text"><strong>ジャンル:</strong> <%= movie.genre.name %></p>
+          <p class="card-text"><strong>公開日:</strong> <%= movie.release_date %></p>
           <div class="btn-group">
             <%= link_to '編集', edit_admin_movie_path(movie), class: "btn btn-sm btn-outline-primary" %>
             <%= link_to '削除', admin_movie_path(movie), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-outline-danger" %>

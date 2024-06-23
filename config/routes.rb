@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
   resources :users, only: [:index, :show, :destroy] do
+    resources :reviews, only: [:index, :destroy]
     resources :comments, only: [:destroy]
   end
 end
@@ -52,8 +53,8 @@ end
     resources :movies
     resources :reviews, except: [:new, :edit]
     resources :comments, except: [:new, :edit]
-    resources :tags, except: [:new, :edit]
-    resources :movie_tags, only: [:index, :create, :destroy]
+    # resources :tags, except: [:new, :edit]
+    # resources :movie_tags, only: [:index, :create, :destroy]
     get 'top', to: 'homes#top'
   end
 

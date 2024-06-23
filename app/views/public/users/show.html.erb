@@ -1,34 +1,51 @@
 <!-- app/views/public/users/show.html.erb -->
 
-<div class="user-details">
-  <h1>User: <%= @user.username %></h1>
-  
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
-  
-  <p>
-    <strong>Role:</strong>
-    <%= @user.role %>
-  </p>
-  
-  <div class="user-actions">
-    <%= link_to 'Edit', edit_public_user_path(@user), class: 'btn btn-primary' %>
-    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+<div class="container">
+  <div class="user-details card mt-4">
+    <div class="card-header">
+      <h1>User: <%= @user.username %></h1>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </p>
+      
+      <p>
+        <strong>Role:</strong>
+        <%= @user.role %>
+      </p>
+      
+      <div class="user-actions mt-3">
+        <%= link_to 'Edit', edit_public_user_path(@user), class: 'btn btn-primary me-2' %>
+        <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
   </div>
-</div>
 
-<!-- ユーザーのコメント一覧 -->
-<div class="user-comments mt-4">
-  <h2>Comments by <%= @user.username %></h2>
-  <ul class="list-group">
-    <% @comments.each do |comment| %>
-      <li class="list-group-item">
-        <strong>Movie:</strong> <%= link_to comment.movie.title, movie_path(comment.movie) %><br>
-        <strong>Comment:</strong> <%= comment.content %><br>
-        <%= link_to 'Delete', public_movie_comment_path(comment.movie, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm mt-2' %>
-      </li>
+  <div class="reviews mt-5">
+    <h2>レビューした映画</h2>
+    <% @reviews.each do |review| %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <p><strong>映画タイトル:</strong> <%= link_to review.movie.title, movie_path(review.movie) %></p>
+          <p><strong>評価:</strong> <%= review.rating %></p>
+          <p><%= review.content %></p>
+        </div>
+      </div>
     <% end %>
-  </ul>
-</div>
+  </div>
+
+<!--  <div class="comments mt-5">-->
+<!--    <h2>コメント</h2>-->
+<!--    <% @comments.each do |comment| %>-->
+<!--      <div class="card mb-3">-->
+<!--        <div class="card-body">-->
+<!--          <p><strong>映画タイトル:</strong> <%= link_to comment.review.movie.title, movie_path(comment.review.movie) %></p>-->
+<!--          <p><strong>レビューの内容:</strong> <%= link_to "レビューを見る", movie_review_path(comment.review.movie, comment.review) %></p>-->
+<!--          <p><%= comment.content %></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    <% end %>-->
+<!--  </div>-->
+<!--</div>-->

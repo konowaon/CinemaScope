@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <h1 class="mb-4"><%= @genre.name %></h1>
+  <h2 class="mb-3">Movies in this genre:</h2>
+  <% if @movies.any? %>
+    <ul class="list-group">
+      <% @movies.each do |movie| %>
+        <li class="list-group-item">
+          <%= link_to movie.title, movie_path(movie), class: 'text-decoration-none' %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted">No movies found in this genre</p>
+  <% end %>
+</div>

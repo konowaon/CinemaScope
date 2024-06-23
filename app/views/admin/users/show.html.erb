@@ -1,32 +1,37 @@
 <!-- app/views/admin/users/show.html.erb -->
-<div class="user-details">
-  <h1>User: <%= @user.username %></h1>
-  
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
-  
-  <p>
-    <strong>Role:</strong>
-    <%= @user.role %>
-  </p>
-  
-  <h2>Comments by <%= @user.username %></h2>
-  
-  <div class="comments">
-    <% @comments.each do |comment| %>
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title"><%= link_to comment.movie.title, admin_movie_path(comment.movie) %></h5>
-          <p class="card-text"><%= comment.content %></p>
-          <%= link_to '削除', admin_user_comment_path(@user, comment), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-  
-  <div class="user-actions mt-4">
-    <%= link_to 'Back', admin_users_path, class: 'btn btn-secondary' %>
+<div class="container mt-5">
+  <div class="user-details card">
+    <div class="card-header">
+      <h1>User: <%= @user.username %>さんの詳細</h1>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>Email:</strong>
+        <%= @user.email %>
+      </p>
+      
+      <p>
+        <strong>Role:</strong>
+        <%= @user.role %>
+      </p>
+
+      <h2>レビュー</h2>
+      <% if @user.reviews.any? %>
+        <% @user.reviews.each do |review| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <p>映画: <%= link_to review.movie.title, movie_path(review.movie) %></p>
+              <p>評価: <%= review.rating %></p>
+              <!-- <%= link_to '削除', admin_user_review_path(@user, review), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %> -->
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>このユーザーはまだレビューを投稿していません。</p>
+      <% end %>
+    </div>
+    <div class="card-footer">
+      <%= link_to 'Back', admin_users_path, class: 'btn btn-secondary' %>
+    </div>
   </div>
 </div>

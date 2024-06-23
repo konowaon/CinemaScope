@@ -1,20 +1,21 @@
 <h1 class="mb-4">Movies</h1>
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
   <% @movies.each do |movie| %>
-    <div class="col mb-4">
+    <div class="col">
       <div class="card h-100">
         <% if movie.image.attached? %>
-          <%= image_tag movie.image, size: "200x200" %>
+          <%= image_tag movie.image, class: "card-img-top", alt: movie.title %>
         <% else %>
           <img src="https://via.placeholder.com/200x200" class="card-img-top" alt="Placeholder">
         <% end %>
         <div class="card-body">
           <h5 class="card-title"><%= link_to movie.title, movie_path(movie) %></h5>
-          <p class="card-text"><%= movie.description %></p>
-          <p class="card-text">評価: <%= movie.rating %></p>
-          <p class="card-text">ジャンル: <%= movie.genre.name %></p>
-          <p class="card-text">公開日: <%= movie.release_date %></p>
+          <p class="card-text"><%= truncate(movie.description, length: 100) %></p>
+          <!--<p class="card-text">評価: <%= movie.rating %></p>-->
+          <p class="card-text"><strong>ジャンル:</strong> <%= movie.genre.name %></p>
+          <p class="card-text"><strong>公開日:</strong> <%= movie.release_date %></p>
+          <p class="card-text"><strong>平均評価:</strong> <%= movie.reviews.average(:rating).to_f.round(1) %></p>
           <% if admin_signed_in? %>
             <div class="btn-group">
               <%= link_to 'Edit', edit_admin_movie_path(movie), class: "btn btn-sm btn-outline-primary" %>

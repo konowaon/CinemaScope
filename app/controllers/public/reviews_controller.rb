@@ -1,47 +1,51 @@
 class Public::ReviewsController < ApplicationController
-  def index
-    @reviews = Review.all
-  end
-
-  def show
-    @review = Review.find(params[:id])
-  end
-  
-  def new
-    @review = Review.new
-  end
+  before_action :set_movie
+  before_action :set_review, only: %i[edit update destroy]
+  before_action :authenticate_user!
+  before_action :correct_user, only: %i[edit update destroy]
 
   def create
-    @review = current_user.reviews.build(review_params)
+    @review = @movie.reviews.build(review_params)
+    @review.user = current_user
     if @review.save
-      redirect_to @review, notice: 'Review was successfully created.'
+      redirect_to @movie, notice: 'レビューが投稿されました。'
     else
-      render :new
+      @reviews = @movie.reviews.includes(:user)
+      render 'public/movies/show'
     end
   end
-  
+
   def edit
-    @review = Review.find(params[:id])
   end
 
   def update
-    @review = Review.find(params[:id])
     if @review.update(review_params)
-      redirect_to @review, notice: 'Review was successfully updated.'
+      redirect_to @movie, notice: 'レビューが更新されました。'
     else
       render :edit
     end
   end
 
   def destroy
-    @review = Review.find(params[:id])
     @review.destroy
-    redirect_to reviews_url, notice: 'Review was successfully destroyed.'
+    redirect_to @movie, notice: 'レビューが削除されました。'
   end
-  
-  
-  
+
+  private
+
+  def set_movie
+    @movie = Movie.find(params[:movie_id])
+  end
+
+  def set_review
+    @review = @movie.reviews.find(params[:id])
+  end
+
   def review_params
-    params.require(:review).permit(:content, :rating, :movie_id)
+    params.require(:review).permit(:rating, :content)
+  end
+
+  def correct_user
+    redirect_to @movie, alert: '権限がありません。' unless @review.user == current_user
   end
 end
