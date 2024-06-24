@@ -23,7 +23,7 @@
 - 自分が見た映画を他人と共有したり、おすすめしたいとき
 
 ## 設計書
-https://docs.google.com/spreadsheets/d/17qCICugvPfLJ8vvJa7ffiY8xQdir6yeSDbwxyPYLxss/edit?gid=549108681#gid=549108681
+https://app.diagrams.net/#G1_RjoCQzDTDs1LnOuXRT47m36qSw4uucM#%7B%22pageId%22%3A%2248jVFMlgaSScSIEwnXbb%22%7D
 
 ## 開発環境
 - OS：Linux(CentOS)
